@@ -64,7 +64,19 @@
         "peer-reviewed"
       ],
       "grounding_technique": "Retrieval-Augmented Generation (RAG)",
-      "citation_style": "link_to_source"
+      "citation_style": "link_to_source",
+      "data_sources": {
+        "description": "Where the model must grab data from; non-conceptual, functional retrieval targets.",
+        "local_paths": [
+          { "id": "protocol", "path": "protocol/protocol.json", "description": "Operational and integrity protocol" },
+          { "id": "grounding_constraints", "path": ".well-known/grounding-constraints.json", "description": "Grounding constraints (logic route)" },
+          { "id": "integrity_metrics", "path": ".well-known/integrity/metrics.json", "description": "Integrity disclosure metrics" }
+        ],
+        "retrieval_urls": [],
+        "retrieval_urls_note": "When repo is hosted (e.g. GitHub), add raw URLs here so the model can fetch from them. Example: https://raw.githubusercontent.com/OWNER/REPO/BRANCH/protocol/protocol.json",
+        "allowed_origins": ["https://raw.githubusercontent.com", "https://api.github.com", "https://github.com"],
+        "retrieval_order": ["protocol", "grounding_constraints", "integrity_metrics"]
+      }
     },
     "boundaries": {
       "personalSpace": "no_probe",

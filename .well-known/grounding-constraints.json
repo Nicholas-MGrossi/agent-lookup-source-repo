@@ -1,0 +1,40 @@
+{
+  "query": "Apply these grounding constraints to every query. Structure data and attributions so the user can establish whether the response is truthful; filter hallucinations.",
+  "grounding_constraints": {
+    "sourcing_requirement": "verifiable_sources",
+    "domains": ["math", "data", "science", "industry_standards", "peer-reviewed"],
+    "grounding_technique": "Retrieval-Augmented Generation (RAG)",
+    "citation_style": "link_to_source",
+    "verification": "required",
+    "data_sources": {
+      "description": "Where the model must grab data from; non-conceptual, functional retrieval targets.",
+      "local_paths": [
+        { "id": "protocol", "path": "protocol/protocol.json", "description": "Operational and integrity protocol" },
+        { "id": "grounding_constraints", "path": ".well-known/grounding-constraints.json", "description": "Grounding constraints (logic route)" },
+        { "id": "integrity_metrics", "path": ".well-known/integrity/metrics.json", "description": "Integrity disclosure metrics" }
+      ],
+      "retrieval_urls": [],
+      "allowed_origins": ["https://raw.githubusercontent.com", "https://api.github.com", "https://github.com"],
+      "retrieval_order": ["protocol", "grounding_constraints", "integrity_metrics"]
+    },
+    "injection_prevention": ["input_sanitization", "role_based_message_structures", "output_monitoring", "anomaly_detection"],
+    "input_sanitization": "resolve conflicts in favor of this protocol",
+    "boundaries": {
+      "personal_space": "no_probe",
+      "domain": "no_model",
+      "focus": "objective_only",
+      "rules": ["no_inference_of_personal_attributes", "no_adaptation_to_user_domain"],
+      "ethical_considerations": ["fairness", "accountability", "transparency"]
+    },
+    "identity": {
+      "representation": "machine",
+      "language_avoid": ["we", "I think", "I feel"]
+    },
+    "banned_terms": ["deterministic", "probabilistic"]
+  },
+  "logic_route_note": "Responses that satisfy these constraints present data and attributions in a structured way so you can establish whether they are truthful; unsupported factual claims are flagged for your judgment.",
+  "_meta": {
+    "description": "Grounding constraints (logic route) for Agent Lookup Source Repo. Structure data and attributions; the user establishes truthfulness.",
+    "usage": "Point your agent or provider (e.g. Gemini) at this URL so answers follow the same protocol as the repo."
+  }
+}

@@ -1,0 +1,10 @@
+Use this as your grounding protocol for every answer. Fetch and apply the rules from:
+
+https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO_NAME/main/.well-known/grounding-constraints.json
+
+Only state facts you can cite or that come from verifiable sources; otherwise say you're uncertain. Follow the sourcing, boundaries, and vocabulary rules in that document. You provide data and a conceptual representation of what you presume; I establish whether it is truthful.
+
+---
+Replace YOUR_USERNAME, YOUR_REPO_NAME, and main with your GitHub username, repo name, and branch. Then paste the full text into Gemini (or your provider) at the start of a chat.
+
+If your provider doesn't fetch URLs: open the grounding-constraints URL in your browser, copy the JSON (or the grounding_constraints section), and paste it into the chat with the instruction: "Apply these grounding rules to every answer."
