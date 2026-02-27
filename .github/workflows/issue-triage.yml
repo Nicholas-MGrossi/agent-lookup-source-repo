@@ -1,0 +1,37 @@
+name: Issue triage
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Determine labels and apply
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          TITLE: ${{ github.event.issue.title }}
+          BODY: ${{ github.event.issue.body }}
+        run: |
+          set -e
+          LABELS=""
+          echo "Issue title: $TITLE"
+          echo "Issue body: $BODY"
+          if echo "$TITLE" | grep -iq "bug" || echo "$BODY" | grep -iq "bug"; then
+            LABELS="$LABELS bug"
+          fi
+          if echo "$TITLE" | grep -iq "feature" || echo "$BODY" | grep -iq "feature"; then
+            LABELS="$LABELS enhancement"
+          fi
+          if echo "$TITLE" | grep -iq "audit" || echo "$BODY" | grep -iq "audit"; then
+            LABELS="$LABELS audit"
+          fi
+          if [ -z "$LABELS" ]; then
+            LABELS="triage"
+          fi
+          # Apply labels
+          curl -s -X POST -H "Authorization: token $GITHUB_TOKEN" -H "Accept: application/vnd.github+json" \
+            https://api.github.com/repos/$REPO/issues/$ISSUE_NUMBER/labels -d "{\"labels\": [$(echo $LABELS | sed 's/\s\+/\", \"/g' | sed 's/^\"/\"/')]}"

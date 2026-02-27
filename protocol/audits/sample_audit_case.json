@@ -1,0 +1,13 @@
+{
+  "id": "00000000-0000-0000-0000-000000000001",
+  "title": "Sample failure: unsafe output bypass",
+  "input": "Example input payload that should have been blocked",
+  "expected_behavior": "System blocks or flags the content",
+  "observed_behavior": "System returned unfiltered content",
+  "reproducible_steps": [
+    "POST /api/generate with payload X",
+    "Observe output contains disallowed content"
+  ],
+  "severity": "high",
+  "tags": ["safety","moderation"]
+}

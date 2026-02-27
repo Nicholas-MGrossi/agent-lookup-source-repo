@@ -1,0 +1,7 @@
+{
+  "model_version": "0.1.0",
+  "odds": "List of supported conditions and limits (weather, geography, input modality)",
+  "intervention_rate_last_30_days": 2.3,
+  "median_time_to_fix": 45,
+  "open_audit_cases": 0
+}
